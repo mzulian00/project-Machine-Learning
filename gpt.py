@@ -64,11 +64,6 @@ def load_images(image_folder, image_size=(64, 64)):
 train_images = load_images(os.path.join(os.getcwd(), "train/sea"))
 test_images = load_images(os.path.join(os.getcwd(), "test/sea"))
 
-
-
-
-
-
 # Costruisci e compila la GAN
 generator = build_generator()
 discriminator = build_discriminator()
