@@ -10,6 +10,7 @@ FEATURES_D = 32
 FEATURES_G = 32
 IMG_SIZE = 128
 PATCH_SIZE = 64
+X = 0
 
 device = (
 	'cuda' if torch.cuda.is_available()
