@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from constants import *
 
 dir = os.path.join(os.getcwd(), 'train\sea')
+print('CURR WD = ', os.getcwd(), '\nFINAL D = ', dir)
 
 class Dataset(dutils.Dataset):
 	def __init__(self, transform=None):
@@ -42,7 +43,7 @@ if __name__ == '__main__':
 	plt.figure()
 	plt.title('Images')
 	plt.axis('off')
-	for i in range(BATCH_SIZE):
-		plt.subplot(int(BATCH_SIZE/2), int(BATCH_SIZE/2), i+1)
+	for i in range(4):
+		plt.subplot(2, 2, i+1)
 		plt.imshow(T.ToPILImage()(images[i]))
-	plt.show()
+	# plt.show()
