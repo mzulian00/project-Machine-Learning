@@ -60,8 +60,8 @@ class Generator(nn.Module):
 if __name__ == '__main__':
 	model = Generator()
 
-	x = torch.randn(16, 3, IMG_SIZE, IMG_SIZE)
-	z = torch.randn(16, Z_DIM)
+	x = torch.randn(BATCH_SIZE, 3, IMG_SIZE, IMG_SIZE)
+	z = torch.randn(BATCH_SIZE, Z_DIM)
 
 	images = model(x, z)
 

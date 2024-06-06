@@ -29,7 +29,7 @@ class Discriminator(nn.Module):
 		return self.main(input)
     
 if __name__ == '__main__':
-	x = torch.randn(16, 3, IMG_SIZE, IMG_SIZE)
+	x = torch.randn(BATCH_SIZE, 3, IMG_SIZE, IMG_SIZE)
 
 	model = Discriminator()
 

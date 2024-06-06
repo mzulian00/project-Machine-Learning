@@ -9,6 +9,7 @@ import random
 import torchvision.transforms as T
 import torchvision.utils as vutils
 import time
+import os
 
 print(f'Started training using device: {device}')
 
@@ -20,8 +21,8 @@ g_opt = torch.optim.Adam(generator.parameters(), lr=LEARNING_RATE, betas=(BETA_1
 
 loss_fn = nn.BCELoss()
 
-fixed_noise = torch.randn(16, Z_DIM, device=device)
-fixed_images = next(iter(dataloader_train))[:16].to(device)
+fixed_noise = torch.randn(BATCH_SIZE, Z_DIM, device=device)
+fixed_images = next(iter(dataloader_train))[:BATCH_SIZE].to(device)
 
 fixed_x_offset = random.randint(0, PATCH_SIZE)
 fixed_y_offset = random.randint(0, PATCH_SIZE)
@@ -71,10 +72,11 @@ for epoch in range(EPOCHS):
 		predicted_patches = generator(fixed_images, fixed_noise)
 	fixed_images[:, :, fixed_x_offset:fixed_x_offset+PATCH_SIZE, fixed_y_offset:fixed_y_offset+PATCH_SIZE] = predicted_patches
 	img = T.ToPILImage()(vutils.make_grid(fixed_images.to('cpu'), normalize=True, padding=2, nrow=4))
-	img.save(f'progress/epoch_{epoch}.jpg')
+	img.save(os.path.join('progress', f'epoch_{epoch}.jpg'))
 train_time = time.time() - start
 print(f'Total training time: {train_time // 60} minutes')
 
 generator = generator.to('cpu')
 
-torch.save(generator, 'models/patch_generator.pkl')
+torch.save(generator, os.path.join('models', 'patch_generator.pkl'))
+
