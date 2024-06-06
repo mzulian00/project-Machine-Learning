@@ -6,12 +6,13 @@ import matplotlib.pyplot as plt
 from constants import IMG_SIZE, BATCH_SIZE
 
 
-dir_train = 'train/sea'
-dir_test = 'test/sea'
-dir_val = 'val/sea'
+dir_train = 'train\sea'
+dir_test = 'test\sea'
+dir_val = 'val\sea'
 
-class CustomDataset(dutils.Dataset, dir):
-    def __init__(self, transform=None):
+class CustomDataset(dutils.Dataset):
+    def __init__(self, transform=None, dir=dir_train):
+        self.dir = dir
         self.image_names = os.listdir(dir)
         self.transform = transform
 
@@ -20,7 +21,7 @@ class CustomDataset(dutils.Dataset, dir):
     
     def __getitem__(self, index):
         image_name = self.image_names[index]
-        image = read_image(os.path.join(dir, image_name)).float() / 255.0  # Normalizzare l'immagine
+        image = read_image(os.path.join(self.dir, image_name)).float() / 255.0  # Normalizzare l'immagine
         if self.transform:
             image = self.transform(image)
         return image
