@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from constants import IMG_SIZE, BATCH_SIZE
 
 dir_train = os.path.join('train', 'sea')
+print(dir_train)
 dir_test = os.path.join('test', 'sea')
 dir_val = os.path.join('val', 'sea')
 
