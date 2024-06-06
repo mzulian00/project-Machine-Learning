@@ -3,13 +3,13 @@ from dataset import dataloader_test
 import random
 import matplotlib.pyplot as plt
 import torchvision.transforms as T
+from constants import *
 
-PATCH_SIZE = 64
 
 model = torch.load('models/patch_generator.pkl', map_location=torch.device('cpu'))
 
 images = next(iter(dataloader_test))
-images = torch.reshape(images, (16, 3, 128, 128))
+images = torch.reshape(images, (BATCH_SIZE, 3, IMG_SIZE, IMG_SIZE))
 
 x_offset = random.randint(0, PATCH_SIZE)
 y_offset = random.randint(0, PATCH_SIZE)

@@ -39,6 +39,7 @@ transform = T.Compose([
 dataset_train = CustomDataset(transform=transform, dir=dir_train)
 dataset_test = CustomDataset(transform=transform, dir=dir_test)
 dataset_val = CustomDataset(transform=transform, dir=dir_val)
+
 dataloader_train = dutils.DataLoader(dataset_train, batch_size=BATCH_SIZE, shuffle=True)
 dataloader_test  = dutils.DataLoader(dataset_test,  batch_size=BATCH_SIZE, shuffle=True)
 dataloader_val   = dutils.DataLoader(dataset_val,   batch_size=BATCH_SIZE, shuffle=True)
