@@ -46,7 +46,7 @@ class Generator(nn.Module):
 
 			nn.ConvTranspose2d(FEATURES_G*2, 3, 4, 2, 1),
 			nn.Sigmoid()
-			# 64x64
+			# 64x64 (as the PATCH_SIZE)
 		)
 	
 	def forward(self, x, z):
