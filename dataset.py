@@ -43,8 +43,6 @@ dataloader_test  = dutils.DataLoader(dataset_test,  batch_size=BATCH_SIZE, shuff
 dataloader_val   = dutils.DataLoader(dataset_val,   batch_size=BATCH_SIZE, shuffle=True)
 
 
-
-
 if __name__ == '__main__':
     images = next(iter(dataloader_train))
     plt.figure(figsize=(8, 8))
