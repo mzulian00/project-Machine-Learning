@@ -7,6 +7,7 @@ from constants import IMG_SIZE, BATCH_SIZE
 
 if __name__ == '__main__':
     dir = 'val/sea'
+dir = 'train/sea'
 
 class CustomDataset(dutils.Dataset):
     def __init__(self, transform=None):
