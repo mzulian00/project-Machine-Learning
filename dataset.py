@@ -5,11 +5,12 @@ import torchvision.transforms as T
 import matplotlib.pyplot as plt
 from constants import IMG_SIZE, BATCH_SIZE
 
-if __name__ == '__main__':
-    dir = 'val/sea'
-dir = 'train/sea'
 
-class CustomDataset(dutils.Dataset):
+dir_train = 'train/sea'
+dir_test = 'test/sea'
+dir_val = 'val/sea'
+
+class CustomDataset(dutils.Dataset, dir):
     def __init__(self, transform=None):
         self.image_names = os.listdir(dir)
         self.transform = transform
@@ -34,12 +35,18 @@ transform = T.Compose([
     T.ToTensor()
 ])
 
-dataset = CustomDataset(transform=transform)
-dataloader = dutils.DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
-test_ds = dutils.DataLoader(dataset, batch_size=16, shuffle=True)
+dataset_train = CustomDataset(transform=transform, dir=dir)
+dataset_test = CustomDataset(transform=transform, dir=dir)
+dataset_val = CustomDataset(transform=transform, dir=dir)
+dataloader_train = dutils.DataLoader(dataset_train, batch_size=BATCH_SIZE, shuffle=True)
+dataloader_test  = dutils.DataLoader(dataset_test,  batch_size=BATCH_SIZE, shuffle=True)
+dataloader_val   = dutils.DataLoader(dataset_val,   batch_size=BATCH_SIZE, shuffle=True)
+
+
+
 
 if __name__ == '__main__':
-    images = next(iter(dataloader))
+    images = next(iter(dataloader_train))
     plt.figure(figsize=(8, 8))
     plt.title('Images')
     plt.axis('off')

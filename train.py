@@ -1,4 +1,4 @@
-from dataset import dataloader
+from dataset import dataloader_train
 from generator import Generator
 from discriminator import Discriminator
 from constants import *

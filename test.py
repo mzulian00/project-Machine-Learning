@@ -1,5 +1,5 @@
 import torch
-from dataset import test_ds
+from dataset import dataloader_test
 import random
 import matplotlib.pyplot as plt
 import torchvision.transforms as T
