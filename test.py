@@ -8,7 +8,7 @@ PATCH_SIZE = 64
 
 model = torch.load('models/patch_generator.pkl', map_location=torch.device('cpu'))
 
-images = next(iter(test_ds))
+images = next(iter(dataloader_test))
 images = torch.reshape(images, (16, 3, 128, 128))
 
 x_offset = random.randint(0, PATCH_SIZE)

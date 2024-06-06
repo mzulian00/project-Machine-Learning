@@ -21,14 +21,14 @@ g_opt = torch.optim.Adam(generator.parameters(), lr=LEARNING_RATE, betas=(BETA_1
 loss_fn = nn.BCELoss()
 
 fixed_noise = torch.randn(16, Z_DIM, device=device)
-fixed_images = next(iter(dataloader))[:16].to(device)
+fixed_images = next(iter(dataloader_train))[:16].to(device)
 
 fixed_x_offset = random.randint(0, PATCH_SIZE)
 fixed_y_offset = random.randint(0, PATCH_SIZE)
 
 start = time.time()
 for epoch in range(EPOCHS):
-	for image_batch in tqdm(dataloader):
+	for image_batch in tqdm(dataloader_train):
 		image_batch = image_batch.to(device)
 		b_size = image_batch.shape[0]
 		discriminator.zero_grad()
