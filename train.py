@@ -11,7 +11,7 @@ import torchvision.utils as vutils
 import time
 import os
 
-print(f'Started training using device: {device}')
+print(f'Started training using device: {device} - {EPOCHS}')
 
 generator = Generator().to(device)
 discriminator = Discriminator().to(device)
