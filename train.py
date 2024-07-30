@@ -10,6 +10,7 @@ import torchvision.transforms as T
 import torchvision.utils as vutils
 import time
 import os
+import sys
 
 print(f'Started training using device: {device} - {EPOCHS}')
 
@@ -80,3 +81,8 @@ generator = generator.to('cpu')
 
 torch.save(generator, os.path.join('models', 'patch_generator.pkl'))
 
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("no arguments")
+    else:
+        print(f"{len(sys.argv)} arguments")
