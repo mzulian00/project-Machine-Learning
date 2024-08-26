@@ -5,9 +5,9 @@ import torchvision.transforms as T
 import matplotlib.pyplot as plt
 from constants import IMG_SIZE, BATCH_SIZE
 
-dir_train = os.path.join('train', 'sea')
-dir_test = os.path.join('test', 'sea')
-dir_val = os.path.join('val', 'sea')
+dir_train = os.path.join('dataset', 'train')
+dir_test =  os.path.join('dataset', 'test')
+dir_val =   os.path.join('dataset', 'val')
 
 class CustomDataset(dutils.Dataset):
     def __init__(self, transform=None, dir=dir_train):
