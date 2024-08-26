@@ -13,8 +13,6 @@ import time
 import os
 import argparse
 
-from git import Repo
-
 def train(args):
 	EPOCHS = args.epochs	
 	print(f'Started training using device: {device} - {EPOCHS}')
@@ -35,6 +33,13 @@ def train(args):
 
 	start = time.time()
 	for epoch in range(EPOCHS):
+		g_losses = []
+		d_losses = []
+		real_losses = []
+		fake_losses = []
+		generator.train()
+		discriminator.train()
+	
 		for image_batch in tqdm(dataloader_train):
 			image_batch = image_batch.to(device)
 			b_size = image_batch.shape[0]
@@ -66,12 +71,21 @@ def train(args):
 			fake_loss.backward()
 			d_opt.step()
 
+			# Compute total discriminator loss and append to list
+			d_loss = real_loss + fake_loss
+			d_losses.append(d_loss.item())
+			real_losses.append(real_loss.item())
+			fake_losses.append(fake_loss.item())
+
 			# Train generator
 			generator.zero_grad()
 			y_hat_fake = discriminator(image_batch).view(-1)
 			g_loss = loss_fn(y_hat_fake, torch.ones_like(y_hat_fake))
 			g_loss.backward()
 			g_opt.step()
+			
+			# Append generator loss to list
+			g_losses.append(g_loss.item())			
 
 		# Validation Loop
 		generator.eval()
