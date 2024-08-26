@@ -83,7 +83,7 @@ def train(args):
 			g_loss = loss_fn(y_hat_fake, torch.ones_like(y_hat_fake))
 			g_loss.backward()
 			g_opt.step()
-			
+
 			# Append generator loss to list
 			g_losses.append(g_loss.item())			
 
@@ -139,8 +139,8 @@ def train(args):
 		img = T.ToPILImage()(vutils.make_grid(fixed_images.to('cpu'), normalize=True, padding=2, nrow=4))
 		img.save(os.path.join('progress', f'epoch_{epoch}.jpg'))
 
-		print(f'Epoch {epoch+1}/{EPOCHS}, Generator Loss: {sum(g_losses)/len(g_losses)}, Real Loss: {sum(real_losses)/len(real_losses)}, Fake Loss: {sum(fake_losses)/len(fake_losses)}')
-		print(f'Validation Generator Loss: {sum(val_g_losses)/len(val_g_losses)}, Validation Real Loss: {sum(val_real_losses)/len(val_real_losses)}, Validation Fake Loss: {sum(val_fake_losses)/len(val_fake_losses)}')
+		print(f'Epoch {epoch+1}/{EPOCHS}, Generator Loss: {sum(g_losses)/len(g_losses):.3f}, Real Loss: {sum(real_losses)/len(real_losses):.3f}, Fake Loss: {sum(fake_losses)/len(fake_losses):.3f}')
+		print(f'Validation Generator Loss: {sum(val_g_losses)/len(val_g_losses):.3f}, Validation Real Loss: {sum(val_real_losses)/len(val_real_losses):.3f}, Validation Fake Loss: {sum(val_fake_losses)/len(val_fake_losses):.3f}')
 
 		if epoch % 100 == 0 or epoch==EPOCHS-1:
 			save_model(generator, discriminator, args.name)
