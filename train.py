@@ -236,26 +236,23 @@ def train(args):
 
 
 def save_model(generator, discriminator, name):
-	print('current dir : ', os.getcwd())
 	os.chdir(os.path.join('..'))
-	print('current dir : ', os.getcwd())
 	os.chdir(os.path.join('drive'))
-	print('current dir : ', os.getcwd())
-	print('lista', os.listdir())
-	print('lista', [s for s in os.listdir() if s.startswith('My')])
-	print('primo', [s for s in os.listdir() if s.startswith('My')][0])
 	os.chdir( [s for s in os.listdir() if s.startswith('My')][0] )
-	print('current dir : ', os.getcwd())
 
 	if os.path.exists(name) == False:
 		os.mkdir(name)
 
 	os.chdir(name)
-	print('current dir : ', os.getcwd())
 
 	torch.save(generator, 'generator.pkl')
 	torch.save(discriminator, 'discriminator.pkl')
-	os.chdir(os.path.join('content','project-Machine-Learning'))
+
+	os.chdir(os.path.join('..'))
+	os.chdir(os.path.join('..'))
+	os.chdir(os.path.join('..'))
+	print('current dir : ', os.getcwd())
+	os.chdir('project-Machine-Learning')
 	print('current dir : ', os.getcwd())
 		  
 
