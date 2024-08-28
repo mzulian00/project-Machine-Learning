@@ -239,6 +239,9 @@ def save_model(generator, discriminator, name):
 	print('current dir : ', os.getcwd())
 	os.chdir(os.path.join('..'))
 	print('current dir : ', os.getcwd())
+	print('lista', os.listdir())
+	print('lista', [s for s in os.listdir() if s.startswith('My')])
+	print('primo', [s for s in os.listdir() if s.startswith('My')][0])
 	os.chdir( [s for s in os.listdir() if s.startswith('My')][0] )
 	print('current dir : ', os.getcwd())
 
