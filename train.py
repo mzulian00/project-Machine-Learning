@@ -22,9 +22,6 @@ def train(args):
 	generator = Generator().to(device)
 	discriminator = Discriminator().to(device)
 
-	"""---------------- DEBUG ----------------"""
-	save_model(generator, discriminator, args.name)
-
 	d_opt = torch.optim.Adam(discriminator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
 	g_opt = torch.optim.Adam(generator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
 
@@ -165,7 +162,7 @@ def train(args):
 		vr_print.append(sum(val_real_losses)/len(val_real_losses))
 		vf_print.append(sum(val_fake_losses)/len(val_fake_losses))
 
-		if epoch % 100 == 0 or epoch==EPOCHS-1:
+		if epoch % 50 == 0 or epoch==EPOCHS-1:
 			save_model(generator, discriminator, args.name)
 
 	#Generator Loss visual
@@ -247,9 +244,10 @@ def save_model(generator, discriminator, name):
 	# Save files
 	torch.save(generator, 'generator.pkl')
 	torch.save(discriminator, 'discriminator.pkl')
-	# TODO save loss, ecc...
-
-	
+	# TODO save loss, ecc..
+	# ..
+	# ..
+	# ..
 
 	# Go back to the Git dir
 	os.chdir(os.path.join('..'))
