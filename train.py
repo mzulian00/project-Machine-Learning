@@ -22,7 +22,7 @@ def train(args):
 	generator = Generator().to(device)
 	discriminator = Discriminator().to(device)
 
-	"""DEBUG"""
+	"""---------------- DEBUG ----------------"""
 	save_model(generator, discriminator, args.name)
 
 	d_opt = torch.optim.Adam(discriminator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
@@ -237,16 +237,11 @@ def train(args):
 
 def save_model(generator, discriminator, name):
 	print('current dir : ', os.getcwd())
-	# os.chdir(os.path.join('content','drive','MyDrive'))
-	# print('current dir : ', os.getcwd())
-	os.chdir('content')
+	os.chdir(os.path.join('..'))
 	print('current dir : ', os.getcwd())
-	os.chdir('drive')
+	os.chdir( [s for s in os.listdir() if s.startswith('My')][0] )
 	print('current dir : ', os.getcwd())
-	os.chdir('MyDrive')
-	print('current dir : ', os.getcwd())
-	
-	
+
 	if os.path.exists(name) == False:
 		os.mkdir(name)
 
