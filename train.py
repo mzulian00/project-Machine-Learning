@@ -236,24 +236,26 @@ def train(args):
 
 
 def save_model(generator, discriminator, name):
+	# Reach the Drive dir
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('drive'))
 	os.chdir( [s for s in os.listdir() if s.startswith('My')][0] )
-
 	if os.path.exists(name) == False:
 		os.mkdir(name)
-
 	os.chdir(name)
 
+	# Save files
 	torch.save(generator, 'generator.pkl')
 	torch.save(discriminator, 'discriminator.pkl')
+	# TODO save loss, ecc...
 
+	
+
+	# Go back to the Git dir
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('..'))
-	print('current dir : ', os.getcwd())
 	os.chdir('project-Machine-Learning')
-	print('current dir : ', os.getcwd())
 		  
 
 
