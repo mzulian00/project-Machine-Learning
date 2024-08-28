@@ -22,8 +22,11 @@ def train(args):
 	lambda_rec = 1.0  # Peso per la reconstruction loss
 	lambda_adv = 0.1  # Peso per la adversarial loss
 
-	generator = Generator().to(device)
-	discriminator = Discriminator().to(device)
+	if args.restart_from == 0:
+		generator = Generator().to(device)
+		discriminator = Discriminator().to(device)
+	else:
+		generator, discriminator = load_previous_model(args.name)
 
 	d_opt = torch.optim.Adam(discriminator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
 	g_opt = torch.optim.Adam(generator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
@@ -47,7 +50,7 @@ def train(args):
 	epo=[]
 
 	start = time.time()
-	for epoch in range(EPOCHS):
+	for epoch in range(args.restart_from, EPOCHS):
 		g_losses = []
 		d_losses = []
 		real_losses = []
@@ -265,13 +268,29 @@ def save_model(epoch, generator, discriminator, img, name):
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('..'))
 	os.chdir('project-Machine-Learning')
-		  
+
+def load_previous_model(name):
+	os.chdir(os.path.join('..'))
+	os.chdir(os.path.join('drive'))
+	os.chdir( [s for s in os.listdir() if s.startswith('My')][0] )	
+	if os.path.exists(name) == False:
+		exit('WRONG MODEL !!!')
+	os.chdir(name)
+	generator = torch.load('generator.pkl' , map_location=torch.device(device))
+	discriminator = torch.load('discriminator.pkl' , map_location=torch.device(device))
+
+	# Go back to the Git dir
+	os.chdir(os.path.join('..'))
+	os.chdir(os.path.join('..'))
+	os.chdir(os.path.join('..'))
+	os.chdir('project-Machine-Learning')
+	return generator, discriminator
 
 if __name__ == "__main__":        
-
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--epochs", type=int, default=300)
 	parser.add_argument("--name", type=str, default='prova')
+	parser.add_argument("--restart_from", type=int, default=0)
 	args = parser.parse_args()
 	
 	train(args)
