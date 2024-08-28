@@ -156,7 +156,7 @@ def train(args):
 			predicted_patches = generator(fixed_images, fixed_noise)
 		fixed_images[:, :, fixed_x_offset:fixed_x_offset+PATCH_SIZE, fixed_y_offset:fixed_y_offset+PATCH_SIZE] = predicted_patches
 		img = T.ToPILImage()(vutils.make_grid(fixed_images.to('cpu'), normalize=True, padding=2, nrow=4))
-		img.save(os.path.join('progress', f'epoch_{epoch}.jpg'))
+
 
 		print(f'Epoch {epoch+1}/{EPOCHS}, Generator Loss: {sum(g_losses)/len(g_losses):.3f}, Real Loss: {sum(real_losses)/len(real_losses):.3f}, Fake Loss: {sum(fake_losses)/len(fake_losses):.3f}')
 		
@@ -172,7 +172,7 @@ def train(args):
 		vf_print.append(sum(val_fake_losses)/len(val_fake_losses))
 
 		if epoch % 50 == 0 or epoch==EPOCHS-1:
-			save_model(generator, discriminator, args.name)
+			save_model(epoch, generator, discriminator, img, args.name)
 
 	#Generator Loss visual
 	plt.figure(figsize=(10, 6))
@@ -240,7 +240,7 @@ def train(args):
 
 
 
-def save_model(generator, discriminator, name):
+def save_model(epoch, generator, discriminator, img, name):
 	# Reach the Drive dir
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('drive'))
@@ -248,10 +248,13 @@ def save_model(generator, discriminator, name):
 	if os.path.exists(name) == False:
 		os.mkdir(name)
 	os.chdir(name)
+	if os.path.exists('progress') == False:
+		os.mkdir('progress')
 
 	# Save files
 	torch.save(generator, 'generator.pkl')
 	torch.save(discriminator, 'discriminator.pkl')
+	img.save(os.path.join('progress', f'epoch_{epoch}.jpg'))
 	# TODO save loss, ecc..
 	# ..
 	# ..
