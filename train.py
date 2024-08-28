@@ -17,7 +17,7 @@ import argparse
 
 def train(args):
 	EPOCHS = args.epochs	
-	print(f'Started training using device: {device} - {EPOCHS}')
+
 
 	lambda_rec = 1.0  # Peso per la reconstruction loss
 	lambda_adv = 0.1  # Peso per la adversarial loss
@@ -25,8 +25,10 @@ def train(args):
 	if args.restart_from == 0:
 		generator = Generator().to(device)
 		discriminator = Discriminator().to(device)
+		print(f'Started training using device: {device} - with {EPOCHS} epochs\n')
 	else:
 		generator, discriminator = load_previous_model(args.name)
+		print(f'Restarted training using device: {device} - from {args.restart_from} to {EPOCHS} epochs\n')
 
 	d_opt = torch.optim.Adam(discriminator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
 	g_opt = torch.optim.Adam(generator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
