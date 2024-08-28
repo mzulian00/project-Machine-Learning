@@ -22,6 +22,9 @@ def train(args):
 	generator = Generator().to(device)
 	discriminator = Discriminator().to(device)
 
+	"""DEBUG"""
+	save_model(generator, discriminator, args.name)
+
 	d_opt = torch.optim.Adam(discriminator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
 	g_opt = torch.optim.Adam(generator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
 
