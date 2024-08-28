@@ -228,7 +228,6 @@ def train(args):
     
 	train_time = time.time() - start
 	print(f'Total training time: {train_time // 60} minutes')
-	
 
 
 
@@ -255,8 +254,6 @@ def save_model(generator, discriminator, name):
 	os.chdir(os.path.join('..'))
 	os.chdir('project-Machine-Learning')
 		  
-
-
 
 if __name__ == "__main__":        
 
