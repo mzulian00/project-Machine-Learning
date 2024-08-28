@@ -150,8 +150,9 @@ def train(args):
 
 
 def save_model(generator, discriminator, name):
-	torch.save(generator, os.path.join('models', f'{name}_gen.pkl'))
-	torch.save(discriminator, os.path.join('models', f'{name}_dis.pkl'))
+	torch.save(generator, os.path.join('content','drive', f'{name}_gen.pkl'))
+	torch.save(discriminator, os.path.join('content','drive', f'{name}_dis.pkl'))
+
 
 
 if __name__ == "__main__":        
