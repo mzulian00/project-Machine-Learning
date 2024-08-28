@@ -236,8 +236,13 @@ def train(args):
 
 
 def save_model(generator, discriminator, name):
-	torch.save(generator, os.path.join('content','drive','My Drive', f'{name}_gen.pkl'))
-	torch.save(discriminator, os.path.join('content','drive','My Drive', f'{name}_dis.pkl'))
+	os.chdir('/content')
+	print(os.getcwd())
+	torch.save(generator, os.path.join('drive','My Drive', f'{name}_gen.pkl'))
+	torch.save(discriminator, os.path.join('drive','My Drive', f'{name}_dis.pkl'))
+	os.chdir(os.path.join('content', 'project-Machine-Learning'))
+	print(os.getcwd())
+		  
 
 
 
