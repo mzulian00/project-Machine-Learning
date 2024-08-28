@@ -233,8 +233,8 @@ def train(args):
 
 
 def save_model(generator, discriminator, name):
-	torch.save(generator, os.path.join('content','drive', f'{name}_gen.pkl'))
-	torch.save(discriminator, os.path.join('content','drive', f'{name}_dis.pkl'))
+	torch.save(generator, os.path.join('content','drive','My Drive', f'{name}_gen.pkl'))
+	torch.save(discriminator, os.path.join('content','drive','My Drive', f'{name}_dis.pkl'))
 
 
 
@@ -244,5 +244,5 @@ if __name__ == "__main__":
 	parser.add_argument("--epochs", type=int, default=300)
 	parser.add_argument("--name", type=str, default='prova')
 	args = parser.parse_args()
-
+	
 	train(args)
