@@ -1,6 +1,7 @@
 import torch
 from dataset import dataloader_test
 import random
+import numpy as np
 import matplotlib.pyplot as plt
 import torchvision.transforms as T
 from constants import *
@@ -32,3 +33,5 @@ for i in range(16):
 	plt.subplot(4, 4, i+1)
 	plt.imshow(T.ToPILImage()(images[i]))
 plt.show()
+
+

@@ -5,6 +5,8 @@ from discriminator import Discriminator
 from constants import *
 from tqdm import tqdm
 from torch import nn
+import numpy as np
+import matplotlib.pyplot as plt
 import torch
 import random
 import torchvision.transforms as T
@@ -30,6 +32,14 @@ def train(args):
 
 	fixed_x_offset = random.randint(0, PATCH_SIZE)
 	fixed_y_offset = random.randint(0, PATCH_SIZE)
+
+	g_print=[]
+	r_print=[]
+	f_print=[]
+	vg_print=[]
+	vr_print=[]
+	vf_print=[]
+	epo=[]
 
 	start = time.time()
 	for epoch in range(EPOCHS):
@@ -140,13 +150,86 @@ def train(args):
 		img.save(os.path.join('progress', f'epoch_{epoch}.jpg'))
 
 		print(f'Epoch {epoch+1}/{EPOCHS}, Generator Loss: {sum(g_losses)/len(g_losses):.3f}, Real Loss: {sum(real_losses)/len(real_losses):.3f}, Fake Loss: {sum(fake_losses)/len(fake_losses):.3f}')
+		
+		g_print.append(sum(g_losses)/len(g_losses))
+		r_print.append(sum(real_losses)/len(real_losses))
+		f_print.append(sum(fake_losses)/len(fake_losses))
+		epo.append(epoch)
+
 		print(f'Validation Generator Loss: {sum(val_g_losses)/len(val_g_losses):.3f}, Validation Real Loss: {sum(val_real_losses)/len(val_real_losses):.3f}, Validation Fake Loss: {sum(val_fake_losses)/len(val_fake_losses):.3f}')
+
+		vg_print.append(sum(val_g_losses)/len(val_g_losses))
+		vr_print.append(sum(val_real_losses)/len(val_real_losses))
+		vf_print.append(sum(val_fake_losses)/len(val_fake_losses))
 
 		if epoch % 100 == 0 or epoch==EPOCHS-1:
 			save_model(generator, discriminator, args.name)
+
+	#Generator Loss visual
+	plt.figure(figsize=(10, 6))
+	plt.plot(epo, g_print, marker='o', linestyle='-', color='b', label='gloss')
+	plt.xlabel('Epoche')
+	plt.ylabel('G_Loss')
+	plt.title('Generator Loss')
+	plt.grid(True)
+	plt.legend()
+	plt.show()
+
+	#Real Loss visual
+	plt.figure(figsize=(10, 6))
+	plt.plot(epo, r_print, marker='o', linestyle='-', color='b', label='rloss')
+	plt.xlabel('Epoche')
+	plt.ylabel('R_Loss')
+	plt.title('Real Loss')
+	plt.grid(True)
+	plt.legend()
+	plt.show()
+
+	#Fake Loss visual
+	plt.figure(figsize=(10, 6))
+	plt.plot(epo, f_print, marker='o', linestyle='-', color='b', label='floss')
+	plt.xlabel('Epoche')
+	plt.ylabel('F_Loss')
+	plt.title('Fake Loss')
+	plt.grid(True)
+	plt.legend()
+	plt.show()
+
+	#Validation Generator Loss visual
+	plt.figure(figsize=(10, 6))
+	plt.plot(epo, vg_print, marker='o', linestyle='-', color='b', label='vgloss')
+	plt.xlabel('Epoche')
+	plt.ylabel('VG_Loss')
+	plt.title('Validation Generator Loss')
+	plt.grid(True)
+	plt.legend()
+	plt.show()
+
+	#Validation Real Loss visual
+	plt.figure(figsize=(10, 6))
+	plt.plot(epo, vr_print, marker='o', linestyle='-', color='b', label='vrloss')
+	plt.xlabel('Epoche')
+	plt.ylabel('VR_Loss')
+	plt.title('Validation Real Loss')
+	plt.grid(True)
+	plt.legend()
+	plt.show()
+
+	#Validation Fake Loss visual
+	plt.figure(figsize=(10, 6))
+	plt.plot(epo, vf_print, marker='o', linestyle='-', color='b', label='vfloss')
+	plt.xlabel('Epoche')
+	plt.ylabel('VF_Loss')
+	plt.title('Validation Fake Loss')
+	plt.grid(True)
+	plt.legend()
+	plt.show()
+			
     
 	train_time = time.time() - start
 	print(f'Total training time: {train_time // 60} minutes')
+	
+
 
 
 def save_model(generator, discriminator, name):
