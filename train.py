@@ -237,8 +237,15 @@ def train(args):
 
 def save_model(generator, discriminator, name):
 	print('current dir : ', os.getcwd())
-	os.chdir(os.path.join('content','drive','MyDrive'))
+	# os.chdir(os.path.join('content','drive','MyDrive'))
+	# print('current dir : ', os.getcwd())
+	os.chdir('content')
 	print('current dir : ', os.getcwd())
+	os.chdir('drive')
+	print('current dir : ', os.getcwd())
+	os.chdir('MyDrive')
+	print('current dir : ', os.getcwd())
+	
 	
 	if os.path.exists(name) == False:
 		os.mkdir(name)
