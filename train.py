@@ -176,7 +176,7 @@ def train(args):
 		vr_print.append(sum(val_real_losses)/len(val_real_losses))
 		vf_print.append(sum(val_fake_losses)/len(val_fake_losses))
 
-		if epoch % 50 == 0 or epoch==EPOCHS-1:
+		if epoch % 25 == 0 or epoch==EPOCHS-1:
 			save_model(epoch, generator, discriminator, img, args.name)
 
 	#Generator Loss visual
