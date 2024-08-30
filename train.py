@@ -182,8 +182,8 @@ def train(args):
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('drive'))
 	os.chdir( [s for s in os.listdir() if s.startswith('My')][0] )
-	if os.path.exists('plots') == False:
-		os.mkdir('plots')
+	os.chdir(args.name)
+	os.mkdir('plots')
 	os.chdir('plots')
 
 	#Generator Loss visual
@@ -250,8 +250,9 @@ def train(args):
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('..'))
+	os.chdir(os.path.join('..'))
 	os.chdir('project-Machine-Learning')
-	
+
 	train_time = time.time() - start
 	print(f'Total training time: {train_time // 60} minutes')
 
