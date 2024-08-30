@@ -179,6 +179,13 @@ def train(args):
 		if epoch % 25 == 0 or epoch==EPOCHS-1:
 			save_model(epoch, generator, discriminator, img, args.name)
 
+	os.chdir(os.path.join('..'))
+	os.chdir(os.path.join('drive'))
+	os.chdir( [s for s in os.listdir() if s.startswith('My')][0] )
+	if os.path.exists('plots') == False:
+		os.mkdir('plots')
+	os.chdir('plots')
+
 	#Generator Loss visual
 	plt.figure(figsize=(10, 6))
 	plt.plot(epo, g_print, marker='o', linestyle='-', color='b', label='gloss')
@@ -187,7 +194,7 @@ def train(args):
 	plt.title('Generator Loss')
 	plt.grid(True)
 	plt.legend()
-	plt.savefig(os.path.join('progress', f'GeneratorLoss'))
+	plt.savefig('GeneratorLoss')
 
 	#Real Loss visual
 	plt.figure(figsize=(10, 6))
@@ -197,7 +204,8 @@ def train(args):
 	plt.title('Real Loss')
 	plt.grid(True)
 	plt.legend()
-	plt.savefig(os.path.join('progress', f'RealLoss'))
+	plt.savefig('RealLoss')
+
 
 	#Fake Loss visual
 	plt.figure(figsize=(10, 6))
@@ -207,7 +215,7 @@ def train(args):
 	plt.title('Fake Loss')
 	plt.grid(True)
 	plt.legend()
-	plt.savefig(os.path.join('progress', f'FakeLoss'))
+	plt.savefig('FakeLoss')
 
 	#Validation Generator Loss visual
 	plt.figure(figsize=(10, 6))
@@ -217,7 +225,7 @@ def train(args):
 	plt.title('Validation Generator Loss')
 	plt.grid(True)
 	plt.legend()
-	plt.savefig(os.path.join('progress', f'ValGeneratorLoss'))
+	plt.savefig('ValGeneratorLoss')
 
 	#Validation Real Loss visual
 	plt.figure(figsize=(10, 6))
@@ -227,7 +235,7 @@ def train(args):
 	plt.title('Validation Real Loss')
 	plt.grid(True)
 	plt.legend()
-	plt.savefig(os.path.join('progress', f'ValRealLoss'))
+	plt.savefig('ValRealLoss')
 
 	#Validation Fake Loss visual
 	plt.figure(figsize=(10, 6))
@@ -237,9 +245,13 @@ def train(args):
 	plt.title('Validation Fake Loss')
 	plt.grid(True)
 	plt.legend()
-	plt.savefig(os.path.join('progress', f'ValFakeLoss'))
+	plt.savefig('ValFakeLoss')
 			
-    
+	os.chdir(os.path.join('..'))
+	os.chdir(os.path.join('..'))
+	os.chdir(os.path.join('..'))
+	os.chdir('project-Machine-Learning')
+	
 	train_time = time.time() - start
 	print(f'Total training time: {train_time // 60} minutes')
 
@@ -270,6 +282,7 @@ def save_model(epoch, generator, discriminator, img, name):
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('..'))
 	os.chdir('project-Machine-Learning')
+
 
 def load_previous_model(name):
 	os.chdir(os.path.join('..'))
