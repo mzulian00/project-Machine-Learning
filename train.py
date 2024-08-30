@@ -187,7 +187,7 @@ def train(args):
 	plt.title('Generator Loss')
 	plt.grid(True)
 	plt.legend()
-	plt.show()
+	plt.savefig(os.path.join('progress', f'GeneratorLoss'))
 
 	#Real Loss visual
 	plt.figure(figsize=(10, 6))
@@ -197,7 +197,7 @@ def train(args):
 	plt.title('Real Loss')
 	plt.grid(True)
 	plt.legend()
-	plt.show()
+	plt.savefig(os.path.join('progress', f'RealLoss'))
 
 	#Fake Loss visual
 	plt.figure(figsize=(10, 6))
@@ -207,7 +207,7 @@ def train(args):
 	plt.title('Fake Loss')
 	plt.grid(True)
 	plt.legend()
-	plt.show()
+	plt.savefig(os.path.join('progress', f'FakeLoss'))
 
 	#Validation Generator Loss visual
 	plt.figure(figsize=(10, 6))
@@ -217,7 +217,7 @@ def train(args):
 	plt.title('Validation Generator Loss')
 	plt.grid(True)
 	plt.legend()
-	plt.show()
+	plt.savefig(os.path.join('progress', f'ValGeneratorLoss'))
 
 	#Validation Real Loss visual
 	plt.figure(figsize=(10, 6))
@@ -227,7 +227,7 @@ def train(args):
 	plt.title('Validation Real Loss')
 	plt.grid(True)
 	plt.legend()
-	plt.show()
+	plt.savefig(os.path.join('progress', f'ValRealLoss'))
 
 	#Validation Fake Loss visual
 	plt.figure(figsize=(10, 6))
@@ -237,7 +237,7 @@ def train(args):
 	plt.title('Validation Fake Loss')
 	plt.grid(True)
 	plt.legend()
-	plt.show()
+	plt.savefig(os.path.join('progress', f'ValFakeLoss'))
 			
     
 	train_time = time.time() - start
