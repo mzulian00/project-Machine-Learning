@@ -19,8 +19,8 @@ def train(args):
 	EPOCHS = args.epochs	
 
 
-	lambda_rec = 1.0  # Peso per la reconstruction loss
-	lambda_adv = 0.1  # Peso per la adversarial loss
+	lambda_rec = 10  # Peso per la reconstruction loss
+	lambda_adv = 1  # Peso per la adversarial loss
 
 	if args.restart_from == 0:
 		generator = Generator().to(device)
