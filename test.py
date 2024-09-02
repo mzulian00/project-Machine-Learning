@@ -12,7 +12,7 @@ def test(args):
 	os.chdir('..')
 	os.chdir('drive')
 	os.chdir([s for s in os.listdir() if s.startswith('My')][0])
-	model = torch.load(os.path.join(args.name, 'generator.pkl') , map_location=torch.device(device))
+	model = torch.load(os.path.join(args.name, 'generator.pkl') , map_location=torch.device('cpu'))
 	os.chdir('..')
 	os.chdir('..')
 	os.chdir('project-Machine-Learning')
