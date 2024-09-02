@@ -13,9 +13,7 @@ def test(args):
 	os.chdir('drive')
 	os.chdir([s for s in os.listdir() if s.startswith('My')][0])
 	model = torch.load(os.path.join(args.name, 'generator.pkl') , map_location=torch.device('cpu'))
-	os.chdir('..')
-	os.chdir('..')
-	os.chdir('project-Machine-Learning')
+
 
 
 
@@ -32,7 +30,6 @@ def test(args):
 		for i in range(16):
 			plt.subplot(4, 4, i+1)
 			plt.imshow(T.ToPILImage()(images[i]))
-		plt.show()
 		plt.savefig('Test 1')
 
 	noise = torch.randn(images.shape[0], 128)
@@ -45,9 +42,11 @@ def test(args):
 		for i in range(16):
 			plt.subplot(4, 4, i+1)
 			plt.imshow(T.ToPILImage()(images[i]))
-		plt.show()
 		plt.savefig('Test 2')
-
+		
+	os.chdir('..')
+	os.chdir('..')
+	os.chdir('project-Machine-Learning')
 
 
 
