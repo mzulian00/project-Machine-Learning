@@ -33,6 +33,7 @@ def test(args):
 			plt.subplot(4, 4, i+1)
 			plt.imshow(T.ToPILImage()(images[i]))
 		plt.show()
+		plt.savefig('Test 1')
 
 	noise = torch.randn(images.shape[0], 128)
 	with torch.no_grad():
@@ -45,6 +46,8 @@ def test(args):
 			plt.subplot(4, 4, i+1)
 			plt.imshow(T.ToPILImage()(images[i]))
 		plt.show()
+		plt.savefig('Test 2')
+
 
 
 
