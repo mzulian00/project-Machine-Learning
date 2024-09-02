@@ -14,6 +14,9 @@ def test(args):
 	os.chdir([s for s in os.listdir() if s.startswith('My')][0])
 	model = torch.load(os.path.join(args.name, 'generator.pkl') , map_location=torch.device('cpu'))
 
+	if os.path.exists('Test') == False:
+		os.mkdir('Test')
+	os.chdir('Test')
 
 
 
@@ -43,7 +46,8 @@ def test(args):
 			plt.subplot(4, 4, i+1)
 			plt.imshow(T.ToPILImage()(images[i]))
 		plt.savefig('Test 2')
-		
+
+	os.chdir('..')
 	os.chdir('..')
 	os.chdir('..')
 	os.chdir('project-Machine-Learning')
