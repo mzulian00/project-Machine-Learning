@@ -9,7 +9,8 @@ import os
 import argparse
 
 def test(args):
-	model = torch.load(os.path.join(args.name, 'generator.pkl') , map_location=torch.device('cpu'))
+
+	model = torch.load(os.path.join('..', 'drive', [s for s in os.listdir() if s.startswith('My')][0],  args.name, 'generator.pkl') , map_location=torch.device(device))
 
 	images = next(iter(dataloader_test))
 	images = torch.reshape(images, (BATCH_SIZE, 3, IMG_SIZE, IMG_SIZE))
