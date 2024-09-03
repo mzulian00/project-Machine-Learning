@@ -91,7 +91,7 @@ def train(args):
 			y_fake = torch.zeros_like(y_hat_fake)
 			fake_loss = loss_fn(y_hat_fake, y_fake)
 			fake_loss.backward()
-			d_opt.step()
+			print(f'\nAlpha_descriminator:{d_opt.step()}')
 
 			# Compute total discriminator loss and append to list
 			d_loss = real_loss + fake_loss
@@ -106,7 +106,7 @@ def train(args):
 			#reconstruction_loss = reconstruction_loss_fn(predicted_patch, image_batch[:, :, x_offset:x_offset+PATCH_SIZE, y_offset:y_offset+PATCH_SIZE])
 			g_loss = lambda_adv * g_adv_loss #+ lambda_rec * reconstruction_loss
 			g_loss.backward()
-			g_opt.step()
+			print(f'\nAlpha_generator:{g_opt.step()}')
 
 			# Append generator loss to list
 			g_losses.append(g_loss.item())			
