@@ -1,6 +1,6 @@
 import torch
 
-BATCH_SIZE = 32
+BATCH_SIZE = 16
 Z_DIM = 128
 EPOCHS = 300
 BETA_1 = 0.5

@@ -17,11 +17,8 @@ import argparse
 
 def train(args):
 	EPOCHS = args.epochs	
-	BATCH_SIZE = args.batch_size	
+	# BATCH_SIZE = args.batch_size	
 	print(f'Batch {BATCH_SIZE}')
-	entrato=0
-	entratog=0
-	x=-1
 
 
 	lambda_rec = 0  # Peso per la reconstruction loss
@@ -323,7 +320,7 @@ if __name__ == "__main__":
 	parser.add_argument("--epochs", type=int, default=300)
 	parser.add_argument("--name", type=str, default='prova')
 	parser.add_argument("--restart_from", type=int, default=0)
-	parser.add_argument("--batch_size", type=int, default=16)
+	# parser.add_argument("--batch_size", type=int, default=16)
 	args = parser.parse_args()
 
 	train(args)
