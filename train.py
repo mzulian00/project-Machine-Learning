@@ -31,8 +31,8 @@ def train(args):
 
 	else:
 		generator, discriminator, loss_dictionary = load_previous_model(args.name)
-		g_print, r_print, f_print = []+loss_dictionary['g_print'], []+loss_dictionary['r_print'], []+loss_dictionary['f_print']
-		vg_print, vr_print, vf_print = []+loss_dictionary['vg_print'], []+loss_dictionary['vr_print'], []+loss_dictionary['vf_print']
+		g_print, r_print, f_print = loss_dictionary['g_print'], loss_dictionary['r_print'], loss_dictionary['f_print']
+		vg_print, vr_print, vf_print = loss_dictionary['vg_print'], loss_dictionary['vr_print'], loss_dictionary['vf_print']
 		print(f'Restarted training using device: {device} - from {args.restart_from} to {EPOCHS} epochs\n')
 
 	d_opt = torch.optim.Adam(discriminator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
@@ -299,6 +299,8 @@ def load_previous_model(name):
 	for file in [file for file in os.listdir() if file.endswith('.txt')]:
 		loss_name = file[:-4] 
 		loss_dictionary[loss_name] = np.loadtxt(file)
+		if len(loss_dictionary[loss_name]) == 1:
+			loss_dictionary[loss_name] = [loss_dictionary[loss_name]]
 
 	# Go back to the Git dir
 	os.chdir(os.path.join('..'))
