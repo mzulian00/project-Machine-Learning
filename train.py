@@ -302,7 +302,9 @@ def load_previous_model(name):
 		loss_name = file[:-4] 
 		loss_dictionary[loss_name] = np.loadtxt(file)
 		if np.isscalar(loss_dictionary[loss_name]):
-			loss_dictionary[loss_name] = [loss_dictionary[loss_name]]
+			loss_dictionary[loss_name] = [loss_dictionary[loss_name].tolist()]
+		else:
+			loss_dictionary[loss_name] = loss_dictionary[loss_name].tolist()
 	print(loss_dictionary)
 	# Go back to the Git dir
 	os.chdir(os.path.join('..'))
