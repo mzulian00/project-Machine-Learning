@@ -17,6 +17,7 @@ import argparse
 
 def train(args):
 	EPOCHS = args.epochs	
+	BATCH_SIZE = args.batch_size	
 
 
 	lambda_rec = 0  # Peso per la reconstruction loss
@@ -33,6 +34,7 @@ def train(args):
 		generator, discriminator, loss_dictionary = load_previous_model(args.name)
 		g_print, r_print, f_print = loss_dictionary['g_print'], loss_dictionary['r_print'], loss_dictionary['f_print']
 		vg_print, vr_print, vf_print = loss_dictionary['vg_print'], loss_dictionary['vr_print'], loss_dictionary['vf_print']
+		print(g_print)
 		print(f'Restarted training using device: {device} - from {args.restart_from} to {EPOCHS} epochs\n')
 
 	d_opt = torch.optim.Adam(discriminator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
@@ -301,7 +303,7 @@ def load_previous_model(name):
 		loss_dictionary[loss_name] = np.loadtxt(file)
 		if np.isscalar(loss_dictionary[loss_name]):
 			loss_dictionary[loss_name] = [loss_dictionary[loss_name]]
-
+	print(loss_dictionary)
 	# Go back to the Git dir
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('..'))
@@ -314,6 +316,7 @@ if __name__ == "__main__":
 	parser.add_argument("--epochs", type=int, default=300)
 	parser.add_argument("--name", type=str, default='prova')
 	parser.add_argument("--restart_from", type=int, default=0)
+	parser.add_argument("--batch_size", type=int, default=16)
 	args = parser.parse_args()
-	
+
 	train(args)
