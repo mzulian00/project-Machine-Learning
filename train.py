@@ -275,7 +275,7 @@ def save_model(epoch, generator, discriminator, img, loss_dictionary, name):
 	torch.save(discriminator, 'discriminator.pkl')
 	img.save(os.path.join('progress', f'epoch_{epoch}.jpg'))
 	for key in loss_dictionary.keys():
-		np.savetxt(key, loss_dictionary[key])
+		np.savetxt(key+".txt", loss_dictionary[key])
 
 
 	# Go back to the Git dir
