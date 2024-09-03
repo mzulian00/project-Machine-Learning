@@ -18,6 +18,10 @@ import argparse
 def train(args):
 	EPOCHS = args.epochs	
 	BATCH_SIZE = args.batch_size	
+	print(f'Batch {BATCH_SIZE}')
+	entrato=0
+	entratog=0
+	x=-1
 
 
 	lambda_rec = 0  # Peso per la reconstruction loss
@@ -93,6 +97,8 @@ def train(args):
 			fake_loss.backward()
 			d_opt.step()
 
+
+
 			# Compute total discriminator loss and append to list
 			d_loss = real_loss + fake_loss
 			d_losses.append(d_loss.item())
@@ -107,6 +113,7 @@ def train(args):
 			g_loss = lambda_adv * g_adv_loss #+ lambda_rec * reconstruction_loss
 			g_loss.backward()
 			g_opt.step()
+
 
 			# Append generator loss to list
 			g_losses.append(g_loss.item())			
