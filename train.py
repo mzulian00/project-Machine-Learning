@@ -18,6 +18,7 @@ import argparse
 def train(args):
 	EPOCHS = args.epochs	
 	BATCH_SIZE = args.batch_size	
+	print(f'Batch {BATCH_SIZE}')
 
 
 	lambda_rec = 0  # Peso per la reconstruction loss
