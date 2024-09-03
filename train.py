@@ -294,6 +294,7 @@ def load_previous_model(name):
 	if os.path.exists(name) == False:
 		exit('WRONG MODEL !!!')
 	os.chdir(name)
+	
 	generator = torch.load('generator.pkl' , map_location=torch.device(device))
 	discriminator = torch.load('discriminator.pkl' , map_location=torch.device(device))
 
@@ -301,11 +302,8 @@ def load_previous_model(name):
 	for file in [file for file in os.listdir() if file.endswith('.txt')]:
 		loss_name = file[:-4] 
 		loss_dictionary[loss_name] = np.loadtxt(file)
-		if np.isscalar(loss_dictionary[loss_name]):
-			loss_dictionary[loss_name] = [loss_dictionary[loss_name].tolist()]
-		else:
-			loss_dictionary[loss_name] = loss_dictionary[loss_name].tolist()
-	print(loss_dictionary)
+		loss_dictionary[loss_name] = loss_dictionary[loss_name].tolist()
+
 	# Go back to the Git dir
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('..'))
