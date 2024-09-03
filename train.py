@@ -299,7 +299,7 @@ def load_previous_model(name):
 	for file in [file for file in os.listdir() if file.endswith('.txt')]:
 		loss_name = file[:-4] 
 		loss_dictionary[loss_name] = np.loadtxt(file)
-		if len(loss_dictionary[loss_name]) == 1:
+		if np.isscalar(loss_dictionary[loss_name]):
 			loss_dictionary[loss_name] = [loss_dictionary[loss_name]]
 
 	# Go back to the Git dir
