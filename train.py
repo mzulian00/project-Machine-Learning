@@ -35,7 +35,7 @@ def train(args):
 
 	loss_fn = nn.BCELoss()
 
-	reconstruction_loss_fn = nn.MSELoss()
+	#reconstruction_loss_fn = nn.MSELoss()
 
 	fixed_noise = torch.randn(BATCH_SIZE, Z_DIM, device=device)
 	fixed_images = next(iter(dataloader_train))[:BATCH_SIZE].to(device)
@@ -101,8 +101,8 @@ def train(args):
 			generator.zero_grad()
 			y_hat_fake = discriminator(image_batch).view(-1)
 			g_adv_loss = loss_fn(y_hat_fake, torch.ones_like(y_hat_fake))
-			reconstruction_loss = reconstruction_loss_fn(predicted_patch, image_batch[:, :, x_offset:x_offset+PATCH_SIZE, y_offset:y_offset+PATCH_SIZE])
-			g_loss = lambda_adv * g_adv_loss + lambda_rec * reconstruction_loss
+			#reconstruction_loss = reconstruction_loss_fn(predicted_patch, image_batch[:, :, x_offset:x_offset+PATCH_SIZE, y_offset:y_offset+PATCH_SIZE])
+			g_loss = lambda_adv * g_adv_loss #+ lambda_rec * reconstruction_loss
 			g_loss.backward()
 			g_opt.step()
 
@@ -145,9 +145,9 @@ def train(args):
 				val_fake_loss = loss_fn(y_hat_fake, y_fake)
 
 				# Validation Generator Loss
-				val_reconstruction_loss = reconstruction_loss_fn(predicted_patch, val_image_batch[:, :, x_offset:x_offset+PATCH_SIZE, y_offset:y_offset+PATCH_SIZE])
+				#val_reconstruction_loss = reconstruction_loss_fn(predicted_patch, val_image_batch[:, :, x_offset:x_offset+PATCH_SIZE, y_offset:y_offset+PATCH_SIZE])
 				val_adv_loss = loss_fn(y_hat_fake, torch.ones_like(y_hat_fake))
-				val_g_loss = lambda_adv * val_adv_loss + lambda_rec * val_reconstruction_loss
+				val_g_loss = lambda_adv * val_adv_loss# + lambda_rec * val_reconstruction_loss
 
 				# Record validation losses
 				val_d_loss = val_real_loss + val_fake_loss
