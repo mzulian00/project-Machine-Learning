@@ -25,9 +25,14 @@ def train(args):
 	if args.restart_from == 0:
 		generator = Generator().to(device)
 		discriminator = Discriminator().to(device)
+		g_print, r_print, f_print = [], [], []
+		vg_print, vr_print, vf_print = [], [], []
 		print(f'Started training using device: {device} - with {EPOCHS} epochs\n')
+
 	else:
-		generator, discriminator = load_previous_model(args.name)
+		generator, discriminator, loss_dictionary = load_previous_model(args.name)
+		g_print, r_print, f_print = loss_dictionary['g_print'], loss_dictionary['r_print'], loss_dictionary['f_print']
+		vg_print, vr_print, vf_print = loss_dictionary['vg_print'], loss_dictionary['vr_print'], loss_dictionary['vf_print']
 		print(f'Restarted training using device: {device} - from {args.restart_from} to {EPOCHS} epochs\n')
 
 	d_opt = torch.optim.Adam(discriminator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
@@ -43,12 +48,7 @@ def train(args):
 	fixed_x_offset = random.randint(0, PATCH_SIZE)
 	fixed_y_offset = random.randint(0, PATCH_SIZE)
 
-	g_print=[]
-	r_print=[]
-	f_print=[]
-	vg_print=[]
-	vr_print=[]
-	vf_print=[]
+
 	epo=[]
 
 	start = time.time()
@@ -177,7 +177,8 @@ def train(args):
 		vf_print.append(sum(val_fake_losses)/len(val_fake_losses))
 
 		if epoch % 25 == 0 or epoch==EPOCHS-1:
-			save_model(epoch, generator, discriminator, img, args.name)
+			loss_dictionary = {'g_print': g_print, 'r_print': r_print, 'f_print': f_print, 'vg_print': vg_print, 'vr_print': vr_print, 'vf_print': vf_print}
+			save_model(epoch, generator, discriminator, img, loss_dictionary, args.name)
 
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('drive'))
@@ -258,7 +259,7 @@ def train(args):
 
 
 
-def save_model(epoch, generator, discriminator, img, name):
+def save_model(epoch, generator, discriminator, img, loss_dictionary, name):
 	# Reach the Drive dir
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('drive'))
@@ -273,10 +274,9 @@ def save_model(epoch, generator, discriminator, img, name):
 	torch.save(generator, 'generator.pkl')
 	torch.save(discriminator, 'discriminator.pkl')
 	img.save(os.path.join('progress', f'epoch_{epoch}.jpg'))
-	# TODO save loss, ecc..
-	# ..
-	# ..
-	# ..
+	for key in loss_dictionary.keys():
+		np.savetxt(key, loss_dictionary[key])
+
 
 	# Go back to the Git dir
 	os.chdir(os.path.join('..'))
@@ -295,12 +295,17 @@ def load_previous_model(name):
 	generator = torch.load('generator.pkl' , map_location=torch.device(device))
 	discriminator = torch.load('discriminator.pkl' , map_location=torch.device(device))
 
+	loss_dictionary = {}
+	for file in [file for file in os.listdir() if file.endswith('.txt')]:
+		loss_name = file[:-4] 
+		loss_dictionary[loss_name] = np.loadtxt(file)
+
 	# Go back to the Git dir
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('..'))
 	os.chdir(os.path.join('..'))
 	os.chdir('project-Machine-Learning')
-	return generator, discriminator
+	return generator, discriminator, loss_dictionary
 
 if __name__ == "__main__":        
 	parser = argparse.ArgumentParser()
