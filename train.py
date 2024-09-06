@@ -17,9 +17,7 @@ import argparse
 
 def train(args):
 	EPOCHS = args.epochs	
-	# BATCH_SIZE = args.batch_size	
 	print(f'Batch {BATCH_SIZE}')
-
 
 	lambda_rec = 0  # Peso per la reconstruction loss
 	lambda_adv = 1  # Peso per la adversarial loss
@@ -38,8 +36,15 @@ def train(args):
 		print(g_print)
 		print(f'Restarted training using device: {device} - from {args.restart_from} to {EPOCHS} epochs\n')
 
-	d_opt = torch.optim.Adam(discriminator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
-	g_opt = torch.optim.Adam(generator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
+	#d_opt = torch.optim.Adam(discriminator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
+	#g_opt = torch.optim.Adam(generator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
+
+	#d_opt = torch.optim.SGD(discriminator.parameters(), lr=LEARNING_RATE, momentum=0.9)
+	#g_opt = torch.optim.SGD(generator.parameters(), lr=LEARNING_RATE, momentum=0.9)
+
+	#d_opt = torch.optim.RMSprop(discriminator.parameters(), lr=LEARNING_RATE, alpha=0.99)
+	#g_opt = torch.optim.RMSprop(generator.parameters(), lr=LEARNING_RATE, alpha=0.99)
+
 
 	loss_fn = nn.BCELoss()
 
@@ -320,7 +325,7 @@ if __name__ == "__main__":
 	parser.add_argument("--epochs", type=int, default=300)
 	parser.add_argument("--name", type=str, default='prova')
 	parser.add_argument("--restart_from", type=int, default=0)
-	# parser.add_argument("--batch_size", type=int, default=16)
+
 	args = parser.parse_args()
 
 	train(args)
