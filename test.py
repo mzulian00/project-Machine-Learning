@@ -10,15 +10,11 @@ import argparse
 
 def test(args):
 	os.chdir('..')
-	os.chdir('drive')
-	os.chdir([s for s in os.listdir() if s.startswith('My')][0])
 
-	model = torch.load(os.path.join(args.name, 'generator.pkl') , map_location=torch.device('cpu'))
+	model = torch.load(os.path.join('drive', [s for s in os.listdir('drive') if s.startswith('My')][0],args.name, 'generator.pkl') , map_location=torch.device('cpu'))
 	
-	os.chdir(args.name)
-	if os.path.exists('Test') == False:
-		os.mkdir('Test')
-	os.chdir('Test')
+	os.chdir('project-Machine-Learning')
+  
 
 	images = next(iter(dataloader_test))
 	images = torch.reshape(images, (BATCH_SIZE, 3, IMG_SIZE, IMG_SIZE))
@@ -28,12 +24,20 @@ def test(args):
 
 	images[:, :, x_offset:x_offset+PATCH_SIZE, y_offset:y_offset+PATCH_SIZE] = 0
 
+	os.chdir('..')
+	os.chdir('drive')
+	os.chdir([s for s in os.listdir() if s.startswith('My')][0])
+	os.chdir(args.name)
+	if os.path.exists('Test') == False:
+		os.mkdir('Test')
+	os.chdir('Test')
+
 	if args.verbose:
 		plt.figure(figsize=(8, 8))
 		for i in range(16):
 			plt.subplot(4, 4, i+1)
 			plt.imshow(T.ToPILImage()(images[i]))
-		plt.savefig('Test 1')
+		plt.savefig('Test Empty Patch')
 
 	noise = torch.randn(images.shape[0], 128)
 	with torch.no_grad():
@@ -45,7 +49,7 @@ def test(args):
 		for i in range(16):
 			plt.subplot(4, 4, i+1)
 			plt.imshow(T.ToPILImage()(images[i]))
-		plt.savefig('Test 2')
+		plt.savefig('Test Filled Patch')
 
 	os.chdir('..')
 	os.chdir('..')
