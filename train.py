@@ -33,7 +33,6 @@ def train(args):
 		generator, discriminator, loss_dictionary = load_previous_model(args.name)
 		g_print, r_print, f_print = loss_dictionary['g_print'], loss_dictionary['r_print'], loss_dictionary['f_print']
 		vg_print, vr_print, vf_print = loss_dictionary['vg_print'], loss_dictionary['vr_print'], loss_dictionary['vf_print']
-		print(g_print)
 		print(f'Restarted training using device: {device} - from {args.restart_from} to {EPOCHS} epochs\n')
 
 	#d_opt = torch.optim.Adam(discriminator.parameters(), lr=LEARNING_RATE, betas=(BETA_1, BETA_2))
@@ -55,9 +54,6 @@ def train(args):
 
 	fixed_x_offset = random.randint(0, PATCH_SIZE)
 	fixed_y_offset = random.randint(0, PATCH_SIZE)
-
-
-	epo=[]
 
 	start = time.time()
 	for epoch in range(args.restart_from, EPOCHS):
@@ -197,6 +193,8 @@ def train(args):
 	os.chdir(args.name)
 	os.mkdir('plots')
 	os.chdir('plots')
+	
+	epo=np.arange(len(g_print))
 
 	#Generator Loss visual
 	plt.figure(figsize=(10, 6))
