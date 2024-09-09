@@ -175,7 +175,6 @@ def train(args):
 		g_print.append(sum(g_losses)/len(g_losses))
 		r_print.append(sum(real_losses)/len(real_losses))
 		f_print.append(sum(fake_losses)/len(fake_losses))
-		epo.append(epoch)
 
 		print(f'Validation Generator Loss: {sum(val_g_losses)/len(val_g_losses):.3f}, Validation Real Loss: {sum(val_real_losses)/len(val_real_losses):.3f}, Validation Fake Loss: {sum(val_fake_losses)/len(val_fake_losses):.3f}')
 
@@ -193,7 +192,7 @@ def train(args):
 	os.chdir(args.name)
 	os.mkdir('plots')
 	os.chdir('plots')
-	
+
 	epo=np.arange(len(g_print))
 
 	#Generator Loss visual
