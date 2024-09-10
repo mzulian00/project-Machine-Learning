@@ -62,6 +62,7 @@ def test(args):
 	os.chdir('..')
 	os.chdir('project-Machine-Learning')
 
+	print('----- TEST -----')
 	# Calculate FID
 	fid_value = FID(real_images, generated_images)
 	print(f"FID: {fid_value:.4}")
@@ -73,7 +74,7 @@ def test(args):
 	# Calculate PSNR
 	psnr_value = PSNR(real_images, generated_images)
 	print(f"PSNR: {psnr_value:.4}")
-
+	print('----------------')
 
 		  
 
