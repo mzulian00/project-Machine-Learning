@@ -170,12 +170,12 @@ def prova_metrics():
     fake_image[:, :, x_offset:x_offset+PATCH_SIZE, y_offset:y_offset+PATCH_SIZE] = predicted_patches
 
 
-    # plt.figure(figsize=(8, 8))
-    # plt.subplot(1, 2, 1)
-    # plt.imshow(T.ToPILImage()(real_image[0]))
-    # plt.subplot(1, 2, 2)
-    # plt.imshow(T.ToPILImage()(fake_image[0]))
-    # plt.show()
+    plt.figure(figsize=(8, 8))
+    plt.subplot(1, 2, 1)
+    plt.imshow(T.ToPILImage()(real_image[0]))
+    plt.subplot(1, 2, 2)
+    plt.imshow(T.ToPILImage()(fake_image[0]))
+    plt.show()
 
     # Suppose you have two lists of images: real_images and generated_images
     real_images = real_image  # List of PIL images
@@ -183,15 +183,16 @@ def prova_metrics():
 
     # Calculate FID
     fid_value = FID(real_images, generated_images)
-    print(f"FID: {fid_value}")
+    print(f"FID: {fid_value:.4}")
 
     # Calculate Inception Score
     is_mean, is_std = Inception_Score(generated_images)
-    print(f"Inception Score: {is_mean} ± {is_std}")
+    print(f"Inception Score: {is_mean:.4} ± {is_std:.2}")
 
     # Calculate PSNR
     psnr_value = PSNR(real_images, generated_images)
-    print(f"PSNR: {psnr_value}")
+    print(f"PSNR: {psnr_value:.4}")
+
 
 
 if __name__ == "__main__":        
