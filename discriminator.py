@@ -2,19 +2,6 @@ import torch
 from torch import nn
 from constants import *
 
-class ResidualBlock(nn.Module):
-    def __init__(self, in_channels):
-        super(ResidualBlock, self).__init__()
-        self.conv_block = nn.Sequential(
-            nn.Conv2d(in_channels, in_channels, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(in_channels),
-            nn.LeakyReLU(0.2, inplace=True),
-            nn.Conv2d(in_channels, in_channels, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(in_channels)
-        )
-
-    def forward(self, x):
-        return nn.LeakyReLU(0.2, inplace=True)(x + self.conv_block(x))
 
 class Discriminator(nn.Module):
     def __init__(self):
@@ -23,7 +10,6 @@ class Discriminator(nn.Module):
             # Input size: 128x128x3
             nn.Conv2d(3, FEATURES_D, 4, 2, 1), 	# 128x128x3 -> 64x64x32
             nn.LeakyReLU(0.2, inplace=True), 	# Leaky ReLU
-            
             
             nn.Conv2d(FEATURES_D, FEATURES_D * 2, 4, 2, 1), # 64x64x32 -> 32x32x64
             nn.LeakyReLU(0.2, inplace=True),				# Leaky ReLU
