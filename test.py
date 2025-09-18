@@ -13,12 +13,12 @@ from metrics import PSNR
 
 
 def test(args):
-	os.chdir('..')
 
+
+	os.chdir('..')
 	model = torch.load(os.path.join('drive', [s for s in os.listdir('drive') if s.startswith('My')][0],args.name, 'generator.pkl') , map_location=torch.device('cpu'))
-	
 	os.chdir('project-Machine-Learning')
-  
+	
 
 	real_images = next(iter(dataloader_test))
 	real_images = torch.reshape(real_images, (BATCH_SIZE, 3, IMG_SIZE, IMG_SIZE))
