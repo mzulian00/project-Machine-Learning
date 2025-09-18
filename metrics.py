@@ -83,7 +83,9 @@ def Inception_Score(images, splits=10):
 
     Key Insight: A higher IS means the images are both recognizable and diverse. However, 
     IS does not directly compare the generated images to real images.
+
     """
+
     # Load a pre-trained Inception model
     model = inception_v3(weights=Inception_V3_Weights.IMAGENET1K_V1, transform_input=False)  # or use Inception_V3_Weights.DEFAULT
     model.fc = nn.Identity()  # Remove the classification layer
@@ -120,7 +122,6 @@ def Inception_Score(images, splits=10):
         split_scores.append(np.exp(np.mean(scores)))
 
     return np.mean(split_scores), np.std(split_scores)
-
 
 
 def PSNR(original_images, generated_images):

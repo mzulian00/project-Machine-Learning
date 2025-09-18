@@ -8,7 +8,6 @@ from constants import *
 import os
 import argparse
 from metrics import FID
-from metrics import Inception_Score
 from metrics import PSNR
 
 
@@ -66,10 +65,6 @@ def test(args):
 	# Calculate FID
 	fid_value = FID(real_images, generated_images)
 	print(f"FID: {fid_value:.4}")
-
-	# Calculate Inception Score
-	is_mean, is_std = Inception_Score(generated_images)
-	print(f"Inception Score: {is_mean:.4} ± {is_std:.2}")
 
 	# Calculate PSNR
 	psnr_value = PSNR(real_images, generated_images)
